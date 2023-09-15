@@ -5,12 +5,44 @@
 #include <string>
 using namespace std;
 
+bool checkRightPart(string inStr) {
+    bool correct = false;
+    if (inStr[0] != '.' && inStr[inStr.length() - 1] != '.') {
+        for (int i = 0; i < inStr.length(); i++) {
+            if (inStr[i] == '.' || inStr[i] == '-' || (inStr[i] >= 'A' && inStr[i] <= 'Z') || (inStr[i] >= 'a' && inStr[i] <= 'z') || (inStr[i] >= '0' && inStr[i] <= '9')) {
+                if (inStr[i] == '.' && inStr[i - 1] == '.') {
+                    return false;
+                }
+                else correct = true;
+            }
+            else return false;
+        }
+        if (correct) return true;
+        else return false;
+    }
+    else return false;
+}
+
 int main()
 {
     string inStr, leftPart, rightPart;
+    int at = 0, atPosition;
     cout << "\nE-mail verification program\n\n";
-    cout << "Input e-mail";
+    cout << "Input e-mail: ";
     getline(cin, inStr);
+    for (int i = 0; i < inStr.length(); i++) {
+        if (inStr[i] == '@') {
+            at++;
+            atPosition = i;
+        }
+    }
+    leftPart = inStr.substr(0, atPosition);
+    rightPart = inStr.substr(atPosition + 1);
+
+    if (at > 1 || at == 0) cout << "No\n";
+    else if (atPosition < 1 || atPosition > 64 && (inStr.length() - atPosition - 1) > 63 || (inStr.length() - atPosition - 1) < 1) cout << "No\n";
+    else if (checkRightPart(rightPart)) cout << "Yes\n";
+    else cout << "No\n";
 
 }
 
