@@ -23,6 +23,11 @@ bool checkRightPart(string inStr) {
     else return false;
 }
 
+bool checkLeftPart(string inStr) {
+    string vocabulary = "!#$%&'*+-/=?^_`{|}~";
+    return true;
+}
+
 int main()
 {
     string inStr, leftPart, rightPart;
@@ -37,11 +42,11 @@ int main()
         }
     }
     leftPart = inStr.substr(0, atPosition);
-    rightPart = inStr.substr(atPosition + 1);
+    rightPart = inStr.substr(atPosition + 1); // может выйти за границы.
 
     if (at > 1 || at == 0) cout << "No\n";
     else if (atPosition < 1 || atPosition > 64 && (inStr.length() - atPosition - 1) > 63 || (inStr.length() - atPosition - 1) < 1) cout << "No\n";
-    else if (checkRightPart(rightPart)) cout << "Yes\n";
+    else if (checkRightPart(rightPart) && checkLeftPart(rightPart)) cout << "Yes\n";
     else cout << "No\n";
 
 }
